@@ -1,0 +1,58 @@
+{
+  "products": [
+    {
+      "id": "bc62",
+      "name": "T-Shirt",
+      "category": "Home Goods",
+      "price": 100,
+      "quantity": 20,
+      "quantityVendus": 10,
+      "date": "2026-01-16"
+    },
+    {
+      "id": "68e9",
+      "name": "Wireless Headphones",
+      "category": "Electronics",
+      "price": 200,
+      "quantity": 100,
+      "quantityVendus": 100,
+      "date": "2026-01-16"
+    },
+    {
+      "id": "47c2",
+      "name": "Running Shoes",
+      "category": "Home Goods",
+      "price": 59,
+      "quantity": 50,
+      "quantityVendus": 24,
+      "date": "2026-01-16"
+    },
+    {
+      "id": "6c0c",
+      "name": "Mystery novel",
+      "category": "Books",
+      "price": 34.12,
+      "quantity": 321,
+      "quantityVendus": 321,
+      "date": "2026-01-16"
+    },
+    {
+      "id": "eef3",
+      "name": "Whole Bean Coffee",
+      "category": "Groceries",
+      "price": 15.5,
+      "quantity": 50,
+      "quantityVendus": 0,
+      "date": "2026-01-16"
+    },
+    {
+      "id": "dca7",
+      "name": "Men's T-Shirt",
+      "category": "Apparel",
+      "price": 67.01,
+      "quantity": 21,
+      "quantityVendus": 1,
+      "date": "2026-01-16"
+    }
+  ]
+}
