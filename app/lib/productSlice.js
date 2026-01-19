@@ -38,6 +38,27 @@ export const addProduct = createAsyncThunk(
     }
   }
 );
+/* ===============================
+   DELETE PRODUCT (POST)
+================================ */
+export const deleteProduct = createAsyncThunk(
+  "products/deleteProduct",
+  async (id, { rejectWithValue }) => {
+    console.log(id);
+    
+    try {
+      const res = await axios.delete(
+        `http://localhost:3001/products/${id}`
+        
+      );
+      return id;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data || "Failed to delete product"
+      );
+    }
+  }
+);
 
 /* ===============================
    SLICE
@@ -64,7 +85,7 @@ const productSlice = createSlice({
       .addCase(addProduct.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.data.push(action.payload); // add product to list
+        state.data.push(action.payload); 
       })
       .addCase(addProduct.rejected, (state, action) => {
         state.loading = false;
@@ -80,7 +101,12 @@ const productSlice = createSlice({
       .addCase(fetchProducts.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      });
+      })
+
+
+      .addCase(deleteProduct.fulfilled, (state,action) => {
+        state.data = state.data.filter((p)=>p.id !== action.payload)
+      })
   },
 });
 

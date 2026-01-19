@@ -1,22 +1,17 @@
 'use client'
 import {
   FiBarChart2,
-  FiSettings,
-  FiPlus,
   FiSearch,
 } from "react-icons/fi";
 import { FiBox, FiDollarSign, FiShoppingCart, FiTrendingUp } from "react-icons/fi";
 
 import { AiOutlineRobot } from "react-icons/ai";
 import { useEffect, useState } from "react";
-import AddProduct from "./components/AddProducts";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "./lib/productSlice";
 import {ChartGraph } from "./components/Chart";
-import Link from "next/link";
 
 export default function DashboardPage() {
-  const [open,setOpen]= useState();
   const dispatch = useDispatch();
   const data = useSelector(state=>state.products.data)
   console.log(data);
@@ -32,42 +27,10 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-slate-100">
-      {/* HEADER */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-20">
-        <div className="max-w-7xl mx-auto px-8 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <FiBox className="text-blue-600 text-xl" />
-            <h1 className="font-semibold text-slate-800">
-              Stock Management Dashboard
-            </h1>
-          </div>
-
-          <nav className="hidden md:flex gap-6 text-sm font-medium">
-            <Link href={'/'} className="text-blue-600 cursor-pointer">Dashboard</Link>
-            <Link href={'/products'} className="text-slate-600 cursor-pointer hover:text-blue-600 transition">
-              Products
-            </Link>
-            <Link href={''} className="text-slate-600 cursor-pointer hover:text-blue-600 transition">
-              Reports
-            </Link>
-            <Link href={''} className="text-slate-600 cursor-pointer hover:text-blue-600 transition">
-              Settings
-            </Link>
-          </nav>
-
-          <button className="flex cursor-pointer items-center gap-2 bg-blue-600 hover:bg-blue-700 transition text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-sm hover:shadow-md"
-            onClick={()=>setOpen(true)}
-          >
-            <FiPlus />
-            Add Product
-          </button>
-        </div>
-      </header>
 
       {/* MAIN */}
       <main className="max-w-7xl mx-auto px-8 py-8 space-y-8">
         {/* STATS */}
-        {/* const stats =  */}
 
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
@@ -112,24 +75,6 @@ export default function DashboardPage() {
             <div className="grid grid-cols-7 gap-6  items-end">
                       <ChartGraph/>
 
-              {/* {[
-                ["Electronics", 30],
-                ["Apparel", 90],
-                ["Home", 80],
-                ["Groceries", 60],
-                ["Books", 45],
-                ["Toys", 70],
-                ["Sports", 25],
-              ].map(([label, h]) => (
-                <div key={label} className="flex flex-col items-center gap-2">
-                  <div
-                    style={{ height: `${h}%` }}
-                    className="w-full bg-blue-200 rounded-t-md
-                               hover:bg-blue-400 transition-all duration-300"
-                  />
-                  <span className="text-xs text-slate-500">{label}</span>
-                </div>
-              ))} */}
             </div>
           </div>
 
@@ -201,11 +146,7 @@ export default function DashboardPage() {
             </table>
           </div>
         </section>
-          {
-            open &&(
-              <AddProduct onClose={()=>setOpen(false)}/>
-            )
-          }
+         
       </main>
     </div>
   );

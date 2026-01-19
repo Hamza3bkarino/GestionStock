@@ -1,24 +1,6 @@
 {
   "products": [
     {
-      "id": "bc62",
-      "name": "T-Shirt",
-      "category": "Home Goods",
-      "price": 100,
-      "quantity": 20,
-      "quantityVendus": 10,
-      "date": "2026-01-16"
-    },
-    {
-      "id": "68e9",
-      "name": "Wireless Headphones",
-      "category": "Electronics",
-      "price": 200,
-      "quantity": 100,
-      "quantityVendus": 100,
-      "date": "2026-01-16"
-    },
-    {
       "id": "47c2",
       "name": "Running Shoes",
       "category": "Home Goods",
