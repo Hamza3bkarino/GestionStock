@@ -4,8 +4,8 @@
       "id": "47c2",
       "name": "Running Shoes",
       "category": "Home Goods",
-      "price": 59,
-      "quantity": 50,
+      "price": 69,
+      "quantity": 500,
       "quantityVendus": 24,
       "date": "2026-01-16"
     },
@@ -32,7 +32,7 @@
       "name": "Men's T-Shirt",
       "category": "Apparel",
       "price": 67.01,
-      "quantity": 21,
+      "quantity": 12,
       "quantityVendus": 1,
       "date": "2026-01-16"
     }

@@ -38,6 +38,27 @@ export const addProduct = createAsyncThunk(
     }
   }
 );
+
+/* ===============================
+   Update PRODUCT (POST)
+================================ */
+export const updateProduct = createAsyncThunk(
+  "products/updateProduct",
+  async ({ id, updatedData }, { rejectWithValue }) => {
+    try {
+      const res = await axios.put(
+        `http://localhost:3001/products/${id}`,
+        updatedData
+      );
+      return res.data; // return updated product
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data || "Failed to update product"
+      );
+    }
+  }
+);
+
 /* ===============================
    DELETE PRODUCT (POST)
 ================================ */
@@ -104,6 +125,19 @@ const productSlice = createSlice({
       })
 
 
+      .addCase(updateProduct.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+
+        const index = state.data.findIndex(
+          (p) => p.id === action.payload.id
+        );
+
+        if (index !== -1) {
+          state.data[index] = action.payload;
+        }
+      })
+      
       .addCase(deleteProduct.fulfilled, (state,action) => {
         state.data = state.data.filter((p)=>p.id !== action.payload)
       })

@@ -6,11 +6,11 @@ export default function DeleteModal({ open, onClose, onConfirm, productName }) {
 
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-      <div className="bg-white rounded-2xl shadow-lg max-w-sm w-full p-6 relative">
+      <div className="bg-white rounded-2xl shadow-lg max-w-lg w-full p-6 relative">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 text-slate-400 hover:text-slate-700 transition"
+          className="absolute top-3 right-3 cursor-pointer text-slate-400 hover:text-slate-700 transition"
         >
           <FiX size={20} />
         </button>
@@ -24,16 +24,16 @@ export default function DeleteModal({ open, onClose, onConfirm, productName }) {
             Are you sure you want to delete <span className="font-semibold">{productName}</span>? This action cannot be undone.
           </p>
 
-          <div className="flex justify-center gap-4">
+          <div className="flex justify-center gap-6">
             <button
               onClick={onClose}
-              className="px-4 cursor-pointer py-2 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100 transition"
+              className="px-8 cursor-pointer py-2 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100 transition"
             >
               Cancel
             </button>
             <button
               onClick={onConfirm}
-              className="px-4 cursor-pointer py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition"
+              className="px-8 cursor-pointer py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition"
             >
               Delete
             </button>

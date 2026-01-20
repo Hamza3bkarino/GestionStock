@@ -5,7 +5,8 @@ import { deleteProduct, fetchProducts } from "../lib/productSlice";
 import { FiEdit, FiTrash2, FiPackage } from "react-icons/fi";
 import DeleteModal from "../components/DeleteModal";
 import EditProductModal from "../components/EditProducts";
-import EditProduct from "../components/EditProducts";
+import { FaRegEye } from "react-icons/fa6";
+import { useRouter } from "next/navigation";
 
 export default function Product() {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ export default function Product() {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [editOpen, setEditOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -35,18 +37,10 @@ export default function Product() {
   setEditOpen(true);
 };
 
-const handleSaveEdit = (updatedData) => {
-//   dispatch(updateProduct({
-//     id: selectedProduct.id,
-//     updatedData: {
-//       ...selectedProduct,
-//       ...updatedData,
-//       price: Number(updatedData.price),
-//       quantity: Number(updatedData.quantity),
-//     }
-//   }));
-  setEditOpen(false);
-};
+  const handleDetailClick = (id) => {
+    router.push(`/details/${id}`);
+  }
+
 
 
 
@@ -74,8 +68,8 @@ const handleSaveEdit = (updatedData) => {
         <span className="col-span-4">Product</span>
         <span className="col-span-2">Category</span>
         <span className="col-span-2">Price</span>
-        <span className="col-span-3">Stock</span>
-        <span className="col-span-1 text-center">Actions</span>
+        <span className="col-span-2">Stock</span>
+        <span className="col-span-2 text-center">Actions</span>
       </div>
 
       {/* LIST */}
@@ -126,7 +120,7 @@ const handleSaveEdit = (updatedData) => {
                 </div>
 
                 {/* STOCK */}
-                <div className="col-span-3">
+                <div className="col-span-2">
                   <div className="space-y-1">
                     <span className="text-sm font-semibold text-slate-700">
                       {item.quantity} units
@@ -146,7 +140,7 @@ const handleSaveEdit = (updatedData) => {
                 </div>
 
                 {/* ACTIONS */}
-                <div className="col-span-1 flex justify-center gap-2">
+                <div className="col-span-2 flex justify-center gap-2">
                   <button className="p-2 cursor-pointer rounded-xl bg-blue-100 text-blue-600
                                      hover:bg-blue-600 hover:text-white transition"
                                        onClick={() => handleEditClick(item)}
@@ -159,6 +153,12 @@ const handleSaveEdit = (updatedData) => {
                                      >
                     <FiTrash2 />
                   </button>
+                  <button className="p-2 cursor-pointer rounded-xl bg-red-100 text-green-600
+                                     hover:bg-green-600 hover:text-white transition"
+                                     onClick={() => handleDetailClick(item.id)}
+                                     >
+                    <FaRegEye />
+                  </button>
                 </div>
               </div>
             );
@@ -169,7 +169,6 @@ const handleSaveEdit = (updatedData) => {
             open={editOpen}
             onClose={() => setEditOpen(false)}
             product={selectedProduct}
-            onSave={handleSaveEdit}
         />
 
        <DeleteModal

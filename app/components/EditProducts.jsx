@@ -9,12 +9,13 @@ import {
   FiEdit2,
   FiX,
 } from "react-icons/fi";
+import { useDispatch } from "react-redux";
+import { updateProduct } from "../lib/productSlice";
 
 export default function EditProductModal({
   open,
   onClose,
   product,
-  onSave,
 }) {
   const [formData, setFormData] = useState({
     name: "",
@@ -24,6 +25,7 @@ export default function EditProductModal({
   });
 
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   // Fill form when product changes
   useEffect(() => {
@@ -47,13 +49,17 @@ export default function EditProductModal({
     setLoading(true);
 
     try {
-      await onSave({
-        ...product,
-        name: formData.name,
-        category: formData.category,
-        price: Number(formData.price),
-        quantity: Number(formData.quantity),
-      });
+       await dispatch(
+        updateProduct({
+          id: product.id,
+          updatedData: {
+            ...product,
+            ...formData,
+            price: Number(formData.price),
+            quantity: Number(formData.quantity),
+          },
+        })
+      ).unwrap();
 
       toast.success("Product updated successfully");
       onClose();
@@ -69,7 +75,7 @@ export default function EditProductModal({
          {/* Overlay */}
          <div
            className="absolute inset-0 bg-black/50"
-           onClick={onClose} // click outside to close
+           onClick={onClose} 
          ></div>
    
          {/* Form */}
