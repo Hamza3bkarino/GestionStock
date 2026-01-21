@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@google/genai": "^1.38.0",
+    "@google/generative-ai": "^0.24.1",
     "@reduxjs/toolkit": "^2.11.2",
     "axios": "^1.13.2",
     "chart.js": "^4.5.1",

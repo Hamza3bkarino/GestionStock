@@ -10,20 +10,65 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "./lib/productSlice";
 import {ChartGraph } from "./components/Chart";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 export default function DashboardPage() {
   const dispatch = useDispatch();
-  const data = useSelector(state=>state.products.data)
-  console.log(data);
+  const data = useSelector(state=>state.products.data);
+  const [search , setSearch]=useState('');
+  const [aiText, setAiText] = useState("");
+  const [aiLoading, setAiLoading] = useState(false);
   const TotalStock = data.reduce((total, item) => total + item.quantity, 0);
   const TotalStockValue = data.reduce((total, item) => total + (item.quantity * item.price), 0).toFixed(2);
   const SoldProducts = data.reduce((total, item) => total + item.quantityVendus, 0);
   const SoldProductsValue = data.reduce((total, item) => total + (item.quantityVendus * item.price), 0).toFixed(2);
+  const soldeProducts = data.filter((p)=>p.quantityVendus > 0);
+  const filtred = soldeProducts.filter((p)=>p.name.toLowerCase().includes(search.toLowerCase()));
   
   
+
+  const handleChange = (e) => {
+    setSearch(e.target.value)
+  }
+
   useEffect(()=>{
     dispatch(fetchProducts())
   },[])
+
+  const generateAIReport = async () => {
+    try {
+      setAiLoading(true);
+      toast.loading("Analyzing sales data...",{
+        id: "ai" ,
+        style: {
+        background: "#2563eb", 
+        color: "#fff",
+  },});
+
+      const prompt = `
+      Analyze my sales data:
+      - Total stock: ${TotalStock}
+      - Stock value: ${TotalStockValue} $
+      - Sold units: ${SoldProducts}
+      - Revenue: ${SoldProductsValue} $
+      Give short business insights and suggestions.
+      Just 4 lines, no numbering.
+      `;
+
+      const res = await axios.post("/api/gemini", { prompt });
+
+      setAiText(res.data.result);
+
+      toast.success("AI report generated successfully!", { id: "ai" });
+    } catch (error) {
+      toast.error("Failed to generate AI report", { id: "ai" });
+      setAiText("Failed to generate AI report.");
+    } finally {
+      setAiLoading(false);
+    }
+  };
+
 
   return (
     <div className="min-h-screen bg-slate-100">
@@ -85,16 +130,27 @@ export default function DashboardPage() {
               AI Analysis
             </h3>
 
-            <div className="bg-blue-50 text-sm text-slate-700 p-4 rounded-md mb-4 leading-relaxed">
-              Apparel sales dominate revenue (40%). Increase stock for top items.
-              Electronics need promotional campaigns.
+            <div className="bg-blue-50 text-sm text-slate-700 p-4 rounded-md mb-4 leading-relaxed whitespace-pre-wrap min-h-[120px]">
+              {aiLoading
+                ? "Analyzing your data..."
+                : aiText || "Click the button to generate AI insights."}
             </div>
 
-            <button className="w-full border border-slate-300 rounded-lg py-2
-                               text-sm font-semibold text-slate-700
-                               hover:bg-slate-100 transition">
-              Generate Full Report →
+
+            <button
+              onClick={generateAIReport}
+              disabled={aiLoading}
+              className={`w-full border border-slate-300 rounded-lg py-2
+                text-sm font-semibold transition
+                ${aiLoading 
+                  ? "cursor-not-allowed opacity-60" 
+                  : "cursor-pointer hover:bg-slate-100"}
+              `}
+            >
+              {aiLoading ? "Generating..." : "Generate Full Report →"}
             </button>
+
+
           </div>
         </section>
 
@@ -102,13 +158,15 @@ export default function DashboardPage() {
         <section className="bg-white border border-slate-200 rounded-lg p-6 hover:shadow-md transition">
           <div className="flex flex-col sm:flex-row justify-between gap-4 mb-4">
             <h2 className="font-semibold text-slate-800">
-              Latest Sales
+              My Sales
             </h2>
 
             <div className="relative w-full sm:w-64">
               <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
               <input
                 placeholder="Search product..."
+                onChange={(e)=>handleChange(e)}
+                value={search}
                 className="w-full pl-10 pr-4 h-10 border border-slate-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500"
               />
             </div>
@@ -127,7 +185,7 @@ export default function DashboardPage() {
               </thead>
 
               <tbody>
-                {data.map((row, i) => (
+                {filtred.map((row, i) => (
                   <tr
                     key={row.id || i}
                     className="bg-slate-50 hover:bg-blue-50 transition"
