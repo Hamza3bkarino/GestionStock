@@ -7,6 +7,7 @@ import DeleteModal from "../components/DeleteModal";
 import EditProductModal from "../components/EditProducts";
 import { FaRegEye } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
+import React from 'react';
 
 export default function Product() {
   const dispatch = useDispatch();

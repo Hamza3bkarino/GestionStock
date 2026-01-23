@@ -6,6 +6,7 @@ import {
 } from "react-icons/fi";
 import { FiBox} from "react-icons/fi";
 import Link from "next/link";
+import React from 'react';
 
 
 export default function NavBar(){

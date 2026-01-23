@@ -2,7 +2,7 @@ import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import Providers from "./Providers";
 import NavBar from "./components/NavBar";
-
+import React from 'react';
 
 export const metadata = {
   title: "Stock Management Dashboard",

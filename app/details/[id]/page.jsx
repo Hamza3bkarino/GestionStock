@@ -1,5 +1,5 @@
 'use client';
-
+import React from 'react';
 import { fetchProducts, deleteProduct } from "@/app/lib/productSlice";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";

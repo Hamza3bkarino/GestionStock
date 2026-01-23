@@ -1,4 +1,5 @@
 'use client'
+import React from 'react';
 import { FiX, FiTrash2 } from "react-icons/fi";
 
 export default function DeleteModal({ open, onClose, onConfirm, productName }) {

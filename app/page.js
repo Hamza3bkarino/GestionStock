@@ -4,7 +4,7 @@ import {
   FiSearch,
 } from "react-icons/fi";
 import { FiBox, FiDollarSign, FiShoppingCart, FiTrendingUp } from "react-icons/fi";
-
+import React from 'react';
 import { AiOutlineRobot } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";

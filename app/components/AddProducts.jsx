@@ -1,5 +1,5 @@
 "use client";
-
+import React from 'react';
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { FiBox, FiDollarSign, FiLayers, FiPlus, FiX } from "react-icons/fi";
